@@ -1,10 +1,5 @@
 -- !Ups
 
-CREATE TABLE area (
-    hh_id BIGINT NOT NULL UNIQUE,
-    name VARCHAR(31) NOT NULL
-);
-
 CREATE TABLE job (
     hh_id BIGINT NOT NULL UNIQUE,
     title VARCHAR(255) NOT NULL,
@@ -15,12 +10,12 @@ CREATE TABLE job (
     salary_currency VARCHAR(3),
     salary_gross BOOLEAN,
     url TEXT NOT NULL,
-    area_id BIGINT REFERENCES area(hh_id) ON DELETE SET NULL
+    area_id BIGINT NOT NULL
 );
 
 CREATE TABLE keyword (
     id BIGINT PRIMARY KEY,
-    word VARCHAR(63) NOT NULL UNIQUE
+    word VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE job_keyword (
@@ -29,9 +24,15 @@ CREATE TABLE job_keyword (
     PRIMARY KEY (job_id, keyword_id)
 );
 
+CREATE TABLE job_area (
+    job_id BIGINT NOT NULL REFERENCES job(hh_id) ON DELETE CASCADE,
+    area_id BIGINT NOT NULL,
+    PRIMARY KEY (job_id, area_id)
+)
+
 -- !Downs
 
 DROP TABLE IF EXISTS job_keyword;
 DROP TABLE IF EXISTS job;
 DROP TABLE IF EXISTS keyword;
-DROP TABLE IF EXISTS area;
+DROP TABLE IF EXISTS job_area;
