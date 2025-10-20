@@ -14,7 +14,7 @@ CREATE TABLE job (
 );
 
 CREATE TABLE keyword (
-    id BIGINT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     word VARCHAR(255) NOT NULL UNIQUE
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE job_area (
     job_id BIGINT NOT NULL REFERENCES job(hh_id) ON DELETE CASCADE,
     area_id BIGINT NOT NULL,
     PRIMARY KEY (job_id, area_id)
-)
+);
 
 -- !Downs
 

@@ -33,7 +33,7 @@ class JobAggregatorService @Inject()(ws: WSClient, val dbConfigProvider: Databas
       existingKeywordId.flatMap {
         case Some(id) => Future.successful(id)
         case None =>
-          val newId = System.currentTimeMillis()
+          val newId = 0L
           db.run(keywordTable += Keyword(newId, keyword))
             .map(_ => newId)(scala.concurrent.ExecutionContext.Implicits.global)
       }(scala.concurrent.ExecutionContext.Implicits.global)
